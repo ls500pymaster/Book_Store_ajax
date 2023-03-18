@@ -1,0 +1,26 @@
+{% for author in authors %}
+
+  <tr>
+    <td>{{ author.name }}</td>
+    <td>{{ author.bio }}</td>
+    <td>{{ author.age }}</td>
+    <td>{{ author.website }}</td>
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-author"
+              data-url="{% url 'author_update' author.id %}">
+        <span class="glyphicon glyphicon-pencil"></span> Edit
+      </button>
+{#      <button type="button"#}
+{#              class="btn btn-danger btn-sm js-delete-author"#}
+{#              data-url="{% url 'author_update' author.id %}">#}
+{#        <span class="glyphicon glyphicon-trash"></span> Delete#}
+{#      </button>#}
+    </td>
+  </tr>
+
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No author</td>
+  </tr>
+{% endfor %}

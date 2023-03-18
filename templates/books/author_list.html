@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% extends 'base_author.html' %}
+
+{% load static %}
+
+{% block extra_js %}
+  <script src="{% static 'author.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">Authors</h1>
+  <p>
+    <button type="button" class="btn btn-primary js-create-author" data-url="{% url 'author_create' %}"> <span class="glyphicon glyphicon-plus"></span>
+      New author
+    </button>
+  </p>
+
+  <table class="table" id="author-table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bio</th>
+      <th>Age</th>
+      <th>Website</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% include 'books/partial_author_list.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-author">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+    </title>
+</head>
+<body>
+
+</body>
+</html>
