@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'widget_tweaks',
     'crispy_forms',
-
+    "app",
     "books",
 ]
 

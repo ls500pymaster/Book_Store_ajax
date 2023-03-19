@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form hx-post="{% url 'contact' %}" hx-target="#contact-form" hx-swap="outerHTML">
+    {% csrf_token %}
+    <div id="contact-form">
+      {% include 'books/contact_form.html' %}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-
+from django.contrib import admin
+from django.urls import path, include
 from books import views
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('', include('app.urls', namespace='app')),
     path('books/', views.book_list, name='book_list'),
     path('books/create/', views.book_create, name='book_create'),
     path('books/<int:pk>/update/', views.book_update, name='book_update'),
@@ -29,6 +30,14 @@ urlpatterns = [
     path("authors/", views.author_list, name="author_list"),
     path("authors/create/", views.author_create, name="author_create"),
     path("authors/<int:pk>/update/", views.author_update, name="author_update"),
+    path("authors/<int:pk>/delete/", views.author_delete, name="author_delete"),
+
+
+    path("contact/", views.contact, name="contact"),
+    path("contact/success/", views.contact_success, name="contact_success"),
+
+
+
 
 
     path('admin/', admin.site.urls),

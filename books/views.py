@@ -1,9 +1,34 @@
-from django.core.mail import send_mail
-from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import ValidationError
+from django.core.mail import send_mail, BadHeaderError
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+
 from books.models import Book, Author
 from books.forms import BookForm, ContactForm, AuthorForm
+
+
+def home(request):
+    return render(request, "books/home.html")
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Send email
+            return JsonResponse({'success': True})
+        else:
+            return render(request, 'books/contact.html', {'form': form})
+    else:
+        form = ContactForm()
+        return render(request, 'books/contact.html', {'form': form})
+
+
+def contact_success(request):
+    return render(request, "books/success.html")
 
 
 def author_list(request):
@@ -28,6 +53,22 @@ def author_update(request, pk):
     return save_author_form(request, form, "books/partial_author_update.html")
 
 
+def author_delete(request, pk):
+    author = get_object_or_404(Author, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        author.delete()
+        data['form_is_valid'] = True
+        authors = Author.objects.all()
+        data['html_author_list'] = render_to_string('books/partial_author_list.html', {
+            'authors': authors
+        })
+    else:
+        context = {'author': author}
+        data['html_form'] = render_to_string('books/partial_author_delete.html', context, request=request)
+    return JsonResponse(data)
+
+
 def save_author_form(request, form, template_name):
     data = dict()
     if request.method == 'POST':
@@ -38,6 +79,8 @@ def save_author_form(request, form, template_name):
             data['html_author_list'] = render_to_string('books/partial_author_list.html', {
                 'authors': authors
             })
+            context = {'form': form}
+            data['html_form'] = render_to_string(template_name, context, request=request)
         else:
             data['form_is_valid'] = False
     context = {'form': form}
@@ -45,8 +88,10 @@ def save_author_form(request, form, template_name):
     return JsonResponse(data)
 
 
-def contact_main(request):
-    return render(request, 'books/contact.html')
+############ books ################
+
+# def contact_main(request):
+#     return render(request, 'books/contact.html')
 
 
 def contact_create(request):

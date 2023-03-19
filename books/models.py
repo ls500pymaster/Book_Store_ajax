@@ -2,6 +2,14 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Number(models.Model):
+    username = models.CharField(max_length=10, blank=False, null=True)
+    number = models.PositiveIntegerField(blank=False, null=True)
+
+    def __str__(self):
+        return self.username
+
+
 class Book(models.Model):
     class BookTypes(models.IntegerChoices):
         HARDCOVER = 1, _('Hardcover')

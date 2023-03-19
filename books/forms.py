@@ -9,7 +9,6 @@ class AuthorForm(forms.ModelForm):
         fields = ('name', 'bio', 'age', 'website')
 
 
-
 class BookForm(forms.ModelForm):
     publication_date = forms.DateField(
         required=False,

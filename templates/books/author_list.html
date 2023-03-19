@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% extends 'base_author.html' %}
+    <title>{% extends 'base.html' %}
 
 {% load static %}
 
 {% block extra_js %}
-  <script src="{% static 'author.js' %}"></script>
+  <script src="{% static 'contact.js' %}"></script>
 {% endblock %}
 
 {% block content %}
   <h1 class="page-header">Authors</h1>
   <p>
-    <button type="button" class="btn btn-primary js-create-author" data-url="{% url 'author_create' %}"> <span class="glyphicon glyphicon-plus"></span>
+    <button type="button" class="btn btn-primary js-author-create-form" data-url="{% url 'author_create' %}"> <span class="glyphicon glyphicon-plus"></span>
       New author
     </button>
+<button hx-get="{% url 'contact' %}" hx-target="#modal" hx-trigger="click" class="nav-link btn btn-link">Contact</button>
   </p>
 
   <table class="table" id="author-table">
@@ -33,7 +34,7 @@
     </tbody>
   </table>
 
-  <div class="modal fade" id="modal-author">
+  <div class="modal fade" id="modal-contact">
     <div class="modal-dialog">
       <div class="modal-content">
 

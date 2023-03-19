@@ -1,0 +1,19 @@
+<script>
+$(function() {
+    $("#button__click").on("click", function() {
+        $("#click__modal").dialog({
+                modal: true,
+                height: "auto",
+                width: "30vw",
+                title: "Please add number!",
+                buttons: {
+                    // "Add Number": ,
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            }
+        )
+    });
+});
+</script>

@@ -7,7 +7,7 @@
 {% load static %}
 
 {% block extra_js %}
-  <script src="{% static 'book.js' %}"></script>
+  <script src="{% static 'contact.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -16,6 +16,7 @@
     <button type="button" class="btn btn-primary js-create-book" data-url="{% url 'book_create' %}"> <span class="glyphicon glyphicon-plus"></span>
       New book
     </button>
+
   </p>
 
   <table class="table" id="book-table">

@@ -18,6 +18,7 @@ $(function () {
     });
   };
 
+  /* Save form */
   var saveForm = function () {
     var form = $(this);
     $.ajax({
@@ -41,15 +42,16 @@ $(function () {
 
   /* Binding */
 
-  // Create book
-  $(".js-create-author").click(loadForm);
-  $("#modal_author").on("submit", ".js-author-create-form", saveForm);
+  // Create author
+  $(".js-author-create-form").click(loadForm);
+  //
+  $("#modal-author").on("submit", ".js-author-create-form", saveForm);
 
-  // Update book
+  // Update author
   $("#author-table").on("click", ".js-update-author", loadForm);
   $("#modal-author").on("submit", ".js-author-update-form", saveForm);
 
-  // Delete book
+  // Delete author
   $("#author-table").on("click", ".js-delete-author", loadForm);
   $("#modal-author").on("submit", ".js-author-delete-form", saveForm);
 
