@@ -20,9 +20,11 @@ def contact_success(request):
 def contact_form(request):
     data = {}
     form = ContactForm(request.POST)
-    name = form["name"]
-    print(form)
-    print(name)
+    if form.is_valid():
+        data["name"] = form.cleaned_data.get("name")
+        print(data)
+
+
 
     return render(request, 'app/contact.html')
     # is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
