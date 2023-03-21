@@ -18,15 +18,27 @@ def contact_success(request):
 
 
 def contact_form(request):
+    is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     data = {}
-    form = ContactForm(request.POST)
-    if form.is_valid():
-        data["name"] = form.cleaned_data.get("name")
-        print(data)
+    if is_ajax:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            email = form.cleaned_data.get("email")
+            subject = form.cleaned_data.get("subject")
+            message = form.cleaned_data.get("id_message")
+            print(name, email, subject, message)
+            send_mail(subject, message, email, ["admin@example.com"])
+            data["status"] = "ok"
+            print(data)
+            return JsonResponse(data)
+        else:
+            data["status"] = "error"
+            return JsonResponse(data)
+    else:
+        form = ContactForm()
 
-
-
-    return render(request, 'app/contact.html')
+    return render(request, 'app/contact.html', {"form": form})
     # is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     # template_name = 'app/contact.html'
     # form_class = ContactForm

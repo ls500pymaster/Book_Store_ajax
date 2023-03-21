@@ -27,20 +27,20 @@
         data:{
             csrfmiddlewaretoken:'{{ csrf_token }}',
             name:$('#name').val(),
-            {#email:$('#id_email').val(),#}
-            {#subject:$('#id_subject').val(),#}
-            {#message:$('#id_message').val(),#}
+            email:$('#email').val(),
+            subject:$('#subject').val(),
+            message:$('#message').val(),
         },
         success: function(data){
             if(data['status']==="error"){
-                $('#message').text('Error!');
+                $('#id_message').text('Error!');
                 return false
             }
             $('#name').val("");
-            {#$('#id_email').val("");#}
-            {#$('#id_subject').val("");#}
-            {#$('#id_message').val("");#}
-            $('#message').text('Success send!');
+            $('#email').val("");
+            $('#subject').val("");
+            $('#message').val("");
+            $('#id_message').text('Success send!');
         },
         error: function(error){
             console.log(error)
