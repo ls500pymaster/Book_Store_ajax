@@ -1,11 +1,46 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import FormView
 from app.forms import NumberForm
-from django.http import JsonResponse
+from django.http import JsonResponse, BadHeaderError
 from app.models import Number, Car
-from app.forms import CarForm
+from app.forms import CarForm, ContactForm
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from django.http import JsonResponse
+from django.core.mail import send_mail
 
 
+# Contact form
+def contact_success(request):
+    return render(request, 'app/success.html')
+
+
+def contact_form(request):
+    data = {}
+    form = ContactForm(request.POST)
+
+    return render(request, 'app/contact.html')
+    # is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
+    # template_name = 'app/contact.html'
+    # form_class = ContactForm
+    # success_url = reverse_lazy('app:contact_success')
+    #
+    # def form_valid(self, form):
+    #     try:
+    #         send_mail(form)
+    #         return JsonResponse({'success': True})
+    #     except BadHeaderError:
+    #         return JsonResponse({'success': False, 'error': 'Invalid header found.'})
+    #     except ValidationError as e:
+    #         return JsonResponse({'success': False, 'error': e.message})
+    #
+    # def form_invalid(self, form):
+    #     return JsonResponse({'success': False, 'error': 'Invalid form data.'})
+
+
+# Car
 class CarFormView(FormView):
     form_class = CarForm
     template_name = "app/car.html"
@@ -38,7 +73,7 @@ def car_form(request, *args, **kwargs):
     context = {"form": form}
     return render(request, "app/car.html", context)
 
-
+# User-number
 class NumberFormView(FormView):
     template_name = "app/home.html"
     form_class = NumberForm

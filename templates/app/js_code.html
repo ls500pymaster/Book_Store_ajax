@@ -1,5 +1,56 @@
-<!-- This is button for car -->
+<!-- This is button contact button -->
 <script>
+    $(function() {
+    $("#button__click__contact").on("click", function(e) {
+        e.preventDefault();
+        $("#click__modal").dialog({
+                modal: true,
+                height: "auto",
+                width: "30vw",
+                title: "Contact Form",
+                buttons: {
+                    "Send contact": sendContact,
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            }
+        )
+    });
+});
+
+        <!-- This is function for contact form -->
+ function sendContact(){
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'app:contact_form' %}",
+        data:{
+            csrfmiddlewaretoken:'{{ csrf_token }}',
+            name:$('#name').val(),
+            {#email:$('#id_email').val(),#}
+            {#subject:$('#id_subject').val(),#}
+            {#message:$('#id_message').val(),#}
+        },
+        success: function(data){
+            if(data['status']==="error"){
+                $('#message').text('Error!');
+                return false
+            }
+            $('#name').val("");
+            {#$('#id_email').val("");#}
+            {#$('#id_subject').val("");#}
+            {#$('#id_message').val("");#}
+            $('#message').text('Success send!');
+        },
+        error: function(error){
+            console.log(error)
+        },
+    })
+}
+
+
+<!-- This is button for car -->
+
     $(function() {
     $("#button__click__car").on("click", function(e) {
         e.preventDefault();

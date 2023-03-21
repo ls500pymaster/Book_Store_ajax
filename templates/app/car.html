@@ -1,5 +1,6 @@
 {% extends "app/base.html" %}
 {% load  widget_tweaks %}
+
 {% block content %}
     <section class="button">
         <div class="button__title">jQueryUI modal</div>
@@ -7,7 +8,9 @@
                 <div class="button__area">
             <button id="button__click__car" class="button__click">Click</button>
         </div>
+
     <div id="click__modal" style="display:none;">
+
 <form id="click__confirm" class="click__confirm" autocomplete="off" action="{% url 'app:car_form' %}" method="POST">
                {% csrf_token %}
                 <div class="click__label">Style</div>
@@ -19,6 +22,7 @@
                 <div class="click__label">Engine cc</div>
                 {% render_field form.engine_cc class="form_field" %}
             </form>
+
         <div id="message" class="success_message"></div>
         </div>
         </div>

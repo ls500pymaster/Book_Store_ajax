@@ -1,0 +1,110 @@
+{% extends "app/base.html" %}
+{% load  widget_tweaks %}
+{% block content %}
+
+
+   <header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarExample01"
+        aria-controls="navbarExample01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Jumbotron -->
+  <div class="p-5 text-center bg-light">
+    <h1 class="mb-3">Heading</h1>
+    <h4 class="mb-3">Subheading</h4>
+
+    <section class="button">
+        <div class="button__area">
+     <button type="button" id="button__click__contact" class="btn btn-primary btn-floating">
+  <i class="fas fa-download"></i>
+</button>
+
+
+    <div id="click__modal" style="display:none;">
+<form id="click__confirm" class="click__confirm" autocomplete="off" action="{% url 'app:contact_form' %}" method="POST">
+               {% csrf_token %}
+      <!-- Name input -->
+  <div class="form-outline mb-4">
+    <input type="text" name="name" class="form-control" />
+    <label class="form-label">Name</label>
+  </div>
+{#               <div class="click__label">NAME</div>#}
+{#               {% render_field form.name class="form_field"%}#}
+{#                <div class="click__label">Email</div>#}
+{#                {% render_field form.email class="form_field" %}#}
+{#                <div class="click__label">Subject</div>#}
+{#               {% render_field form.subject class="form_field"%}#}
+{#                <div class="click__label">Message</div>#}
+{#                {% render_field form.message class="form_field" %}#}
+            </form>
+        <div id="message" class="success_message"></div>
+    </div>
+        </div>
+    </section>
+  </div>
+
+   </header>
+
+{#    <section class="button">#}
+{#        <div class="btn btn-primary btn-block mb-0">jQueryUI modal</div>#}
+{#        <div class="button__area">#}
+{#                <div class="button__area">#}
+{##}
+{#                  <button type="button" button id="button__click__contact" class="btn btn-primary btn-floating">#}
+{#  <i class="fas fa-download"></i>#}
+{#</button>#}
+{##}
+{##}
+{#    <div id="click__modal" style="display:none;">#}
+{#<form id="click__confirm" class="click__confirm" autocomplete="off" action="{% url 'app:contact_form' %}" method="POST">#}
+{#               {% csrf_token %}#}
+{#                    <div class="click__label">Name</div>#}
+{#               {% render_field form.name class="form_field"%}#}
+{#                <div class="click__label">Email</div>#}
+{#                {% render_field form.email class="form_field" %}#}
+{#                <div class="click__label">Subject</div>#}
+{#               {% render_field form.subject class="form_field"%}#}
+{#                <div class="click__label">Message</div>#}
+{#                {% render_field form.message class="form_field" %}#}
+{#            </form>#}
+{#        <div id="message" class="success_message"></div>#}
+{#        </div>#}
+{#        </div>#}
+{#        </div>#}
+{#    </section>#}
+
+
+
+
+
+{% endblock %}

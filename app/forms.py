@@ -1,5 +1,7 @@
 from django import forms
 
+from app.models import Contact
+
 
 class NumberForm(forms.Form):
     username = forms.CharField(label="username", required=True, max_length=10)
@@ -12,7 +14,14 @@ class CarForm(forms.Form):
     model = forms.CharField(label="model", required=False, max_length=20)
     engine_cc = forms.IntegerField(label="engine_cc", required=False)
 
-# class CarForm(forms.ModelForm):
-#     class Meta:
-#         model = Car
-#         fields = ["style", "manufacturer", "model", "engine_cc", ]
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'subject', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subject'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}),
+        }
