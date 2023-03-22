@@ -41,6 +41,26 @@
             $('#subject').val("");
             $('#message').val("");
             $('#id_message').text('Success send!');
+        var successMsg = '<div id="success-modal" class="modal fade" tabindex="-1" role="dialog">' +
+          '<div class="modal-dialog" role="document">' +
+          '<div class="modal-content">' +
+          '<div class="modal-header">' +
+          '<h5 class="modal-title">Message Sent Successfully</h5>' +
+            '<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>' +
+          '</button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<p>Thank you for contacting us. We will get back to you as soon as possible.</p>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+          '<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+        $('body').append(successMsg);
+        $('#success-modal').modal('show');
+        $('#click__modal').modal('hide');
         },
         error: function(error){
             console.log(error)

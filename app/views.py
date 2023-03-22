@@ -1,15 +1,11 @@
-from django.core.exceptions import ValidationError
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import FormView
-from app.forms import NumberForm
-from django.http import JsonResponse, BadHeaderError
-from app.models import Number, Car
-from app.forms import CarForm, ContactForm
-from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
-from django.http import JsonResponse
 from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.generic.edit import FormView
+
+from app.forms import CarForm, ContactForm
+from app.forms import NumberForm
+from app.models import Number, Car
 
 
 # Contact form
@@ -27,34 +23,17 @@ def contact_form(request):
             email = form.cleaned_data.get("email")
             subject = form.cleaned_data.get("subject")
             message = form.cleaned_data.get("id_message")
-            print(name, email, subject, message)
+            # print(name, email, subject, message)
             send_mail(subject, message, email, ["admin@example.com"])
             data["status"] = "ok"
-            print(data)
+            # print(data)
             return JsonResponse(data)
         else:
             data["status"] = "error"
             return JsonResponse(data)
     else:
         form = ContactForm()
-
     return render(request, 'app/contact.html', {"form": form})
-    # is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
-    # template_name = 'app/contact.html'
-    # form_class = ContactForm
-    # success_url = reverse_lazy('app:contact_success')
-    #
-    # def form_valid(self, form):
-    #     try:
-    #         send_mail(form)
-    #         return JsonResponse({'success': True})
-    #     except BadHeaderError:
-    #         return JsonResponse({'success': False, 'error': 'Invalid header found.'})
-    #     except ValidationError as e:
-    #         return JsonResponse({'success': False, 'error': e.message})
-    #
-    # def form_invalid(self, form):
-    #     return JsonResponse({'success': False, 'error': 'Invalid form data.'})
 
 
 # Car
@@ -89,6 +68,7 @@ def car_form(request, *args, **kwargs):
             return JsonResponse(data)
     context = {"form": form}
     return render(request, "app/car.html", context)
+
 
 # User-number
 class NumberFormView(FormView):
